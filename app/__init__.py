@@ -1,14 +1,6 @@
 from flask import Flask
 from flask_migrate import Migrate
 
-import csv
-
-def load_data():
-    with open('./data/content.csv') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            print("row", row)
-
 def create_app():
     app = Flask(__name__)
 

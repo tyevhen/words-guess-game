@@ -41,7 +41,6 @@ def upgrade():
     sa.Column('player', sa.String(length=20), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    print("DATA\n", load_cards_data())
     op.bulk_insert(table, load_cards_data())
 
     # ### end Alembic commands ###

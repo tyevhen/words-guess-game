@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import DateTime, func
+import editdistance
+import string
 
 db = SQLAlchemy()
 
@@ -13,6 +15,35 @@ class Card(db.Model):
     context = db.Column(db.String(100), nullable=False)
     form_translation = db.Column(db.String(100), nullable=False)
     context_translation = db.Column(db.String(100), nullable=False)
+
+    @property
+    def task(self):
+        form_translation_clean = self.form_translation.translate(str.maketrans('', '', string.punctuation)).lower().split(' ')
+        context_translation_clean = self.context_translation.translate(str.maketrans('', '', string.punctuation)).split(' ')
+        
+        print("PREPPING TASK...")
+        print('form_translation_clean', form_translation_clean)
+        print('context_translation_clean', context_translation_clean)
+
+        lowest_distance = 1000
+        word_task = ''
+
+        for word in context_translation_clean:
+            distances = [editdistance.eval(word.lower(), x) for x in form_translation_clean]
+            word_candidate_from_translation = form_translation_clean[distances.index(min(distances))]
+
+            curr_lowest_dist = min(distances)
+            if curr_lowest_dist < lowest_distance and word_candidate_from_translation[0] == word[0].lower():
+                lowest_distance = curr_lowest_dist
+                word_task = word
+        
+        print('WORD', word_task)
+        print('lowest_distance', lowest_distance)
+        print('pharse_template', self.context_translation.replace(word_task, '*'))
+
+        task = { 'phrase_template': self.context_translation.replace(word_task, '*'), 'answer': word_task }
+        return task
+        
 
     @property
     def serialize(self):

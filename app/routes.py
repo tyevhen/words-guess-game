@@ -1,6 +1,6 @@
 from flask import current_app, request, jsonify
 from sqlalchemy import desc
-from .services.game import Results, load_game, save_game
+from .services.game_handler import GameHandler, load_game, save_game
 from .models import Card, Game, db
 
 
@@ -15,43 +15,37 @@ def commit_to_db(entry):
 
 @current_app.route('/', methods=['GET', 'POST'])
 def game():
-    cards = Card.query.all()  
     active_game = Game.query.filter(Game.ended_at == None).order_by(desc(Game.started_at)).first()
     if active_game:
         print("UNFINISHED GAME")
-        result = load_game(active_game.results)
+        game_handler = load_game(active_game.results)
     else:
         print("NEW GAME")
+        cards = Card.query.all()  
         card_ids = [card.id for card in cards]
-        result = Results(card_ids)
-        active_game = Game(results=save_game(result))
+        game_handler = GameHandler(card_ids, cards[0].task)
+        active_game = Game(results=save_game(game_handler))
         commit_to_db(active_game)
 
     if request.method == 'GET':    
-        return jsonify(result.serialize)
+        return jsonify(game_handler.serialize)
     
     if request.method == 'POST':
         answer = request.args.get('answer')
-        if answer == 'correct':
-            result.correct_answer()
-            
-        elif answer == 'wrong':
-            result.wrong_answer()
-        
-        elif answer == 'help':
-            result.help_answer()
-        print("ANSWER", result.game_progress)
-        print("CARD ORDER", result.cards)
-
-        active_game.results = save_game(result)
+        print("CLIENT ANSWER: ", answer)
+        game_handler.validate_answer(answer)
+        print("CURR CARD\n\n", game_handler.current_card)
+        next_card = Card.query.filter(Card.id == game_handler.current_card).one()
+        game_handler.task = next_card.task
+        print("PROGRESS", game_handler.game_progress)
+        active_game.results = save_game(game_handler)
         db.session.commit()
 
-        return {}
+        return jsonify(game_handler.serialize)
     
-    return "I'm index!"
 
-@current_app.route('/card', methods=['GET'])
-def get_cards():
-    cards = Card.query.all()
+# @current_app.route('/card', methods=['GET'])
+# def get_cards():
+#     cards = Card.query.all()
 
-    return jsonify([card.serialize for card in cards])
+#     return jsonify([card.serialize for card in cards])

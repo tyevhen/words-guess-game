@@ -1,0 +1,43 @@
+.card {
+    flex: 1 1 auto;
+    flex-direction: column;
+    z-index: 1;
+    margin-bottom: 0;
+    min-height: 19.875rem;
+    display: flex;
+}
+
+.card-header {
+    height: 50px;
+    background: gray;
+}
+
+.card-task {
+    height: 100%;
+    min-height: 200px;
+    padding: 20px;
+    display: flex;
+}
+
+.card-task-text {
+    color: darkslategrey;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.card-button {
+    width: 80px;
+    align-self: flex-end;
+}
+
+.correct {
+    background: lightgreen;
+}
+
+.wrong {
+    background: lightsalmon;
+}
+
+.help {
+    background: lightskyblue;
+}

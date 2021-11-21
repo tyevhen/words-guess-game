@@ -41,7 +41,12 @@ class Card(db.Model):
         print('lowest_distance', lowest_distance)
         print('pharse_template', self.context_translation.replace(word_task, '*'))
 
-        task = { 'phrase_template': self.context_translation.replace(word_task, '*'), 'answer': word_task }
+        task = { 
+            'phrase_template': self.context_translation.replace(word_task, '*'), 
+            'answer': word_task, 
+            'card': self.serialize
+        }
+        print("TASKKK", task)
         return task
         
 
@@ -64,7 +69,3 @@ class Game(db.Model):
     results = db.Column(db.LargeBinary)
     started_at = db.Column(DateTime, default=func.now())
     ended_at = db.Column(DateTime, nullable=True)
-
-    # @property
-    # def serialize(self):
-

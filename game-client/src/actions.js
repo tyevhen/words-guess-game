@@ -1,13 +1,30 @@
 import * as types from "./actionTypes";
 
-const getCards = () => {
+const loadGame = () => {
     return {
-        type: types.FETCH_CARDS,
+        type: types.LOAD_GAME,
     };
 };
 
+const onInputValueUpdate = (value) => {
+    return {
+        type: types.ANSWER_INPUT_CHANGE,
+        value
+    }
+};
+
+const submitAnswer = (answer) => {
+    return {
+        type: types.SUBMIT_ANSWER,
+        data: {},
+        params: {answer: answer} 
+    }
+};
+
 const appActions = {
-    getCards
+    loadGame,
+    submitAnswer,
+    onInputValueUpdate
 }
 
 export default appActions;

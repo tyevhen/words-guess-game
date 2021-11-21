@@ -1,15 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Game from '../components/Game';
 import appActions from '../actions';
 
 const GameContainer = (props) => {
     useEffect(
-        () => props.getCards(),
+        () => props.loadGame(),
         []
-    )
+    );
+
+    useEffect(
+        () => setAnswerValue(''),
+        [props.inputHighlightStyle]
+    );
+    
+    const [answerValue, setAnswerValue] = useState('');
+
+    // answerValue={ answerValue } 
+    //         onAnswerValueChange={ setAnswerValue } 
     return (
-        <Game { ...props } />
+        <Game 
+            { ...props } 
+        />
     );
 };
 
@@ -19,7 +31,9 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
     return {
-        cards: state.card.cards
+        game: state.game.game,
+        inputValue: state.game.inputValue,
+        inputHighlightStyle: state.game.inputHighlightStyle
     };
 };
 

@@ -5,7 +5,7 @@ import Game from './containers/Game';
 
 const App = () => {
     return (
-        <Container>
+        <Container maxWidth="md">
             <Game/>
         </Container>
     );

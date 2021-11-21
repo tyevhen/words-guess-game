@@ -13,7 +13,7 @@ def commit_to_db(entry):
         raise e
 
 
-@current_app.route('/', methods=['GET', 'POST'])
+@current_app.route('/game', methods=['GET', 'POST'])
 def game():
     active_game = Game.query.filter(Game.ended_at == None).order_by(desc(Game.started_at)).first()
     if active_game:
@@ -28,9 +28,11 @@ def game():
         commit_to_db(active_game)
 
     if request.method == 'GET':    
+        print("LOAD GAME TASK", game_handler.task)
         return jsonify(game_handler.serialize)
     
     if request.method == 'POST':
+        print("REQ: ", request.data)
         answer = request.args.get('answer')
         print("CLIENT ANSWER: ", answer)
         game_handler.validate_answer(answer)

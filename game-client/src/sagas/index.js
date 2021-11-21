@@ -1,11 +1,11 @@
 import { put, call, all } from "redux-saga/effects";
-import cardsSaga from './card';
+import gameSagas from './game';
 
 
 export default function* rootSaga() {
     yield(
         all([
-            cardsSaga()
+            gameSagas()
         ])
     )
 }

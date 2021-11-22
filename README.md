@@ -1,4 +1,4 @@
-# words-guess-game
+# words-guess-game server
 
 1. create database guess_game;
    create user 'lingvist'@'localhost' identified by '1234';

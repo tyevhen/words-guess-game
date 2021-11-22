@@ -23,7 +23,6 @@ priority,word,phrase_tag,context,form_translation,context_translation
 22,family,NN,a family,die Familie,eine Familie
 23,father,NN,a father,der Vater,ein Vater
 24,an,DT,an apple,"ein, eine",ein Apfel
-25,email,NN,an email,E-Mail,eine E-Mail
 26,I,PP,I work.,ich,Ich arbeite.
 27,know,VV,I know.,wissen,Ich weiß.
 28,see,VV,I see a car.,sehen,Ich sehe ein Auto.

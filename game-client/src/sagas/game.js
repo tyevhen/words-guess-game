@@ -24,11 +24,11 @@ function* submitAnswerFlow(action) {
         if (response.data.is_valid) {
             yield put({ type: types.ANSWER_CORRECT });
         } else if (response.data.is_valid === null) {
-            yield put({ type: types.ANSWER_HELP });
+            yield put({ type: types.ANSWER_HELP, answer: response.data.task.answer });
         } else if (!response.data.is_valid) {
             yield put({ type: types.ANSWER_WRONG });
         }
-        yield delay(2000);
+        yield delay(2500);
         yield put({ type: types.RESET_STYLE });
         yield put({ type: types.SUBMIT_ANSWER_SUCCESS, response });
     } catch(error) {

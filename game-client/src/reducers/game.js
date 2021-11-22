@@ -3,11 +3,10 @@ import * as types from '../actionTypes';
 const initialState = {
     game: undefined,
     inputValue: '',
-    inputHighlightStyle: ''
+    inputHighlightStyle: 'default'
 };
 
 export default function card(state = initialState, action) {
-    console.log("ACT", action);
     switch (action.type) {
         case types.LOAD_GAME_SUCCESS:
             return { ...state, game: action.response.data };
@@ -20,9 +19,9 @@ export default function card(state = initialState, action) {
         case types.ANSWER_WRONG:
             return { ...state, inputHighlightStyle: 'wrong' };    
         case types.ANSWER_HELP:
-            return { ...state, inputHighlightStyle: 'help' }; 
+            return { ...state, inputHighlightStyle: 'help', inputValue: action.answer }; 
         case types.RESET_STYLE:
-            return { ...state, inputHighlightStyle: '' };   
+            return { ...state, inputHighlightStyle: initialState.inputHighlightStyle };   
     default:
         return state
     }

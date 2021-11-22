@@ -38,9 +38,6 @@ class Card(db.Model):
                 word_task = word
         
         print('WORD', word_task)
-        print('lowest_distance', lowest_distance)
-        print('pharse_template', self.context_translation.replace(word_task, '*'))
-
         task = { 
             'phrase_template': self.context_translation.replace(word_task, '*'), 
             'answer': word_task, 

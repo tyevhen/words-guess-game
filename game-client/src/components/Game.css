@@ -1,33 +1,103 @@
 .card {
-    flex: 1 1 auto;
+    display: flex;
     flex-direction: column;
     z-index: 1;
-    margin-bottom: 0;
-    min-height: 19.875rem;
-    display: flex;
+    margin: auto;
+    margin-top: 20px;
+    max-width: 42.5rem;
+    justify-content: center;
+}
+
+.new-game {
+    align-items: center;
+    padding-bottom: 20px;
 }
 
 .card-header {
-    height: 50px;
-    background: gray;
+    padding: 10px 20px;
+    height: 35px;
 }
 
 .card-task {
     height: 100%;
-    min-height: 200px;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     display: flex;
+    flex-direction: column;
+}
+
+.card-task-phrase {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card-input-box {
+    width: fit-content;
+    max-width: 100px;
+}
+
+.card-input {
+    border-radius: 3px;
+    padding: 0 !important;
+    margin: 0 2px;
+    font-size: 40px !important;
+    color: #127888 !important;
+}
+
+.card-input * {
+    padding: 0 !important;
 }
 
 .card-task-text {
-    color: darkslategrey;
+    text-decoration: underline;
+    text-decoration-color: #D0E4E7;
     font-weight: 600;
-    margin-right: 5px;
+    font-size: 40px;
+    margin: 0 5px;
+    color: #127888 !important;
 }
 
+.card-progress {
+    display: flex;
+    flex-direction: column;
+}
+
+.progress {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 3px;
+}
+
+.progress p {
+    margin: 0;
+}
+
+.indicator {
+    width: 15px;
+    height: 5px;
+    margin-right: 3px;
+    border-radius: 2px;
+}
+
+.card-task-context p {
+    color: #127888;
+}
+
+
 .card-button {
-    width: 80px;
+    width: 100px;
     align-self: flex-end;
+    color: #127888 !important;
+    border-color: #127888 !important;
+}
+
+.card-button.new-game {
+    align-self: center;
+}
+
+.default {
+    background: #F5F5F5;
 }
 
 .correct {

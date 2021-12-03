@@ -3,6 +3,12 @@ import { Card, Input, Button } from '@mui/material';
 import './Game.css';
 
 const Game = ({ game, inputValue, onInputValueUpdate, submitAnswer, inputHighlightStyle, loadGame }) => {
+    
+    // const handleKeyPress = e => {
+    //     if (e.keyCode == 13) {
+    //         this.btn.click();
+    //     }
+    // };
 
     const buildPhraseTemplate = () => {
         var inputStyle = { 'width': game.task.answer.length * 25 };
@@ -14,6 +20,7 @@ const Game = ({ game, inputValue, onInputValueUpdate, submitAnswer, inputHighlig
                             <Input 
                                 value={ inputValue } 
                                 onChange={ e => onInputValueUpdate(e.target.value) }
+                                // onKeyDown={ handleKeyPress }
                                 className={ 'card-input ' + inputHighlightStyle }
                                 fullWidth={ true }
                                 disableUnderline={ true }
@@ -79,7 +86,12 @@ const Game = ({ game, inputValue, onInputValueUpdate, submitAnswer, inputHighlig
                         <p>{ game.task.card.word }</p>
                         <p>{ game.task.card.context }</p>
                     </div>
-                    <Button variant="outlined" className="card-button" onClick={ () => submitAnswer(inputValue) }> 
+                    <Button
+                        type="submit" 
+                        variant="outlined" 
+                        className="card-button" 
+                        onClick={ () => submitAnswer(inputValue) }
+                    > 
                         { inputValue === '' ? 'Reveal' : 'Enter' }
                     </Button>
                 </div>
